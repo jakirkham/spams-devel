@@ -10,8 +10,10 @@ if [ -x /cygdrive/c/MinGW/msys/1.0/bin/bash ]; then
     exec /cygdrive/c/MinGW/msys/1.0/bin/bash $0 $optx $*
 fi
 
-INC="-I. -Ispams/linalg -Ispams/prox -Ispams/decomp -Ispams/dictLearn -I/usr/include/python2.7/"
-INC_PYTHON=-I/usr/include/python2.6
+INC_PYTHON="$(python -c 'from distutils.sysconfig import get_python_inc; print(get_python_inc())')"
+INC_NUMPY="$(python -c 'from numpy import get_include; print(get_include())')"
+INC="-I. -Ispams/linalg -Ispams/prox -Ispams/decomp -Ispams/dictLearn -I${INC_PYTHON}"
+INC_PYTHON="-I${INC_PYTHON} -I${INC_NUMPY}"
 XCCFLAGS=""
 XLINKFLAGS=""
 # on MacOS, use following definition instead.
@@ -25,7 +27,6 @@ OMPFLAGS="-fopenmp"
 if [ -d /System/Library/Frameworks ]; then  
  # MacOs
     macos=1
-    INC_PYTHON="-I/System/Library/Frameworks/Python.framework/Versions/2.7/Extras/lib/python/numpy/core/include"
     XCCFLAGS="-m32"
     XLINKFLAGS="-m32 -framework Python"
 fi
@@ -41,7 +42,6 @@ case `uname` in
 	BLAS='-lRblas -lRlapack'
 	if [ -d C:\Python27 ]; then
 	    CCFLAGS="-DWIN32 -fopenmp"  
-	    INC_PYTHON="-IC:\Python27\include -IC:\Python27\Lib\site-packages\numpy\core\include"
 	    LIBS=" -LC:\Python27\libs -lpython27"
 	fi
 	;;
