@@ -19,10 +19,10 @@ libs = ['stdc++', 'blas', 'lapack' ]
 libdirs = []
 
 
-if sys.maxsize > 2**32:
-    cc_flags += ["-m64"]
-else:
-    cc_flags += ["-m32"]
+#if sys.maxsize > 2**32:
+cc_flags += ["-m64"]
+#else:
+#    cc_flags += ["-m32"]
 
 ##path = os.environ['PATH']; print "XX OS %s, path %s" %(osname,path)
 
