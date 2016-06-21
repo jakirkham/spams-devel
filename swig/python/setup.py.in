@@ -17,24 +17,6 @@ link_flags = ['-fopenmp', '-s' ]
 libs = ['stdc++', 'blas', 'lapack' ]
 libdirs = []
 
-if osname.startswith("macosx"):
-    cc_flags = ['-fPIC', '-fopenmp','-m32']
-    link_flags = ['-m32', '-framework', 'Python']
-
-if osname.startswith("win32"):
-    cc_flags = ['-fPIC', '-fopenmp','-DWIN32']
-    link_flags = ['-fopenmp', '-mwindows']
-    path = os.environ['PATH']
-    os.environ['PATH'] = 'C:/MinGW/bin;' + path
-    libs = ['stdc++', 'Rblas', 'Rlapack' ]
-    libdirs = ['C:/Program Files/R/R-2.15.1/bin/i386']
-
-if osname.startswith("win-amd64"):
-    cc_flags = ['-openmp', '-EHsc', '-DWIN32', '-DCYGWIN', '-DWINDOWS', '-I','C:/Program Files (x86)/Microsoft Visual Studio 9.0/VC/include']
-    link_flags = []
-    libs = [ 'Rblas', 'Rlapack' ]
-    libdirs = ['C:/Program Files (x86)/Microsoft Visual Studio 9.0/VC/lib/amd64','C:/Program Files/R/R-2.15.1/bin/x64']
-
 
 ##path = os.environ['PATH']; print "XX OS %s, path %s" %(osname,path)
 
