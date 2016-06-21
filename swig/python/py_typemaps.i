@@ -64,13 +64,11 @@ extern "C" {
 %typemap(in,numinputs=0,fragment="NumPy_Fragments") (Vector<DATA_TYPE> **ARGOUT_VECTOR)
 (Vector<DATA_TYPE>  *data_temp)
 {
-	# argout in
 	$1 = &data_temp;	
 }
 
 %typemap(argout) (Vector<DATA_TYPE> **ARGOUT_VECTOR ) 
 {
-	  # test argout
 	  if(data_temp$argnum != NULL) {
 	    npy_intp n = data_temp$argnum->n();
 	    npy_intp dims[1] = {n};
@@ -142,13 +140,11 @@ extern "C" {
 %typemap(in,numinputs=0,fragment="NumPy_Fragments") (Matrix<DATA_TYPE> **ARGOUT_MATRIX)
 (Matrix<DATA_TYPE>  *data_temp)
 {
-	# argout in
 	$1 = &data_temp;	
 }
 
 %typemap(argout) (Matrix<DATA_TYPE> **ARGOUT_MATRIX ) 
 {
-	  # test argout
 	  if(data_temp$argnum != NULL) {
 	    npy_intp m = data_temp$argnum->m();
 	    npy_intp n = data_temp$argnum->n();
@@ -328,7 +324,6 @@ extern "C" {
 }
 %typemap(argout) (SpMatrix<DATA_TYPE> **ARGOUT_SPMATRIX ) 
 {
-# test argout
   if(data_temp$argnum != NULL) {
     npy_intp m = data_temp$argnum->m();
     npy_intp n = data_temp$argnum->n();
