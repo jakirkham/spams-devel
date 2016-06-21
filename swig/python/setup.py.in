@@ -13,10 +13,6 @@ from numpy.distutils.system_info import blas_info
 incs = ['.'] + [os.path.join('spams', x) for x in [ 'linalg', 'prox', 'decomp', 'dictLearn']] + [numpy.get_include(), get_python_inc()] + blas_info().get_include_dirs()
 
 osname = distutils.util.get_platform()
-cc_flags = ['-fPIC', '-fopenmp', '-Wunused-variable']
-link_flags = ['-fopenmp', '-s' ]
-libs = ['stdc++', 'blas', 'lapack', 'gomp']
-libdirs = numpy.distutils.system_info.blas_info().get_lib_dirs()
 
 
 #if sys.maxsize > 2**32:
@@ -41,6 +37,9 @@ for _ in numpy.__config__.blas_opt_info.get("extra_link_args", []):
 for _ in numpy.__config__.lapack_opt_info.get("extra_link_args", []):
     if _ not in link_flags:
         link_flags.append(_)
+
+libs = ['stdc++', 'blas', 'lapack', 'gomp']
+libdirs = numpy.distutils.system_info.blas_info().get_lib_dirs()
 
 
 
