@@ -13,7 +13,7 @@ from numpy.distutils.system_info import blas_info
 incs = ['.'] + [os.path.join('spams', x) for x in [ 'linalg', 'prox', 'decomp', 'dictLearn']] + [numpy.get_include(), get_python_inc()] + blas_info().get_include_dirs()
 
 osname = distutils.util.get_platform()
-cc_flags = ['-fPIC', '-fopenmp']
+cc_flags = ['-fPIC', '-fopenmp', '-Wunused-variable']
 link_flags = ['-fopenmp', '-s' ]
 libs = ['stdc++', 'blas', 'lapack' ]
 libdirs = []
