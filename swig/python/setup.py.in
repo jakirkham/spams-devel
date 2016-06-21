@@ -24,6 +24,15 @@ cc_flags += ["-m64"]
 #else:
 #    cc_flags += ["-m32"]
 
+for _ in numpy.__config__.blas_opt_info.get("extra_compile_args", []):
+    if _ not in cc_flags:
+        cc_flags.append(_)
+
+for _ in numpy.__config__.lapack_opt_info.get("extra_compile_args", []):
+    if _ not in cc_flags:
+        cc_flags.append(_)
+
+
 ##path = os.environ['PATH']; print "XX OS %s, path %s" %(osname,path)
 
 spams_wrap = Extension(
