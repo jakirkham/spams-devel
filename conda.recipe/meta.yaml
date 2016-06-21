@@ -1,0 +1,41 @@
+{% set variant = "openblas" %}
+
+package:
+  name: spams
+  version: {{ environ.get('GIT_DESCRIBE_TAG', '')[1:] }}{{ '+' + environ.get('GIT_DESCRIBE_NUMBER', '0') + '.' + environ.get('GIT_DESCRIBE_HASH', '0') if environ.get('GIT_DESCRIBE_NUMBER', '0') != '0' else "" }}
+
+source:
+  git_url: ..
+
+build:
+  number: 0
+  skip: true  # [win]
+
+requirements:
+  build:
+    - gcc
+    - swig
+    - python
+    - blas 1.1 {{ variant }}
+    - openblas 0.2.18*
+    - numpy x.x
+    - scipy
+    # For tests.
+    - pillow
+
+  run:
+    - libgcc
+    - python
+    - blas 1.1 {{ variant }}
+    - openblas 0.2.18*
+    - numpy x.x
+    - scipy
+
+test:
+  imports:
+    - spams
+
+about:
+  home: http://spams-devel.gforge.inria.fr/
+  license: GPL 3
+  summary: An optimization toolbox for solving various sparse estimation problems.
