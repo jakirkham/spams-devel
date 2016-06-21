@@ -1,4 +1,5 @@
 import os
+import sys
 #os.environ['DISTUTILS_DEBUG'] = "1"
 from distutils.core import setup, Extension
 from distutils.sysconfig import get_python_inc
@@ -17,6 +18,11 @@ link_flags = ['-fopenmp', '-s' ]
 libs = ['stdc++', 'blas', 'lapack' ]
 libdirs = []
 
+
+if sys.maxsize > 2**32:
+    cc_flags += ["-m64"]
+else:
+    cc_flags += ["-m32"]
 
 ##path = os.environ['PATH']; print "XX OS %s, path %s" %(osname,path)
 
